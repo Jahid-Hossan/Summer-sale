@@ -2,6 +2,13 @@ let total = 0;
 
 
 function clickHandler(target) {
+    const itemList = target.childNodes[3].childNodes[3].innerText;
+    const selectedItemContainer = document.getElementById('selected-items');
+    const count = selectedItemContainer.childElementCount;
+    console.log(itemList);
+    const li = document.createElement('li');
+    li.innerHTML =`${count + 1}. ${itemList}`;
+    selectedItemContainer.appendChild(li);
     const itemPriceArr = target.childNodes[3].childNodes[5].innerText.split(" ");
     const itemPrice = itemPriceArr[0];
     const price = parseFloat(itemPrice);
@@ -34,8 +41,8 @@ applyBtn.addEventListener('click', function () {
         const parcentageOfDiscount = totalAmount * 0.20;
         const getDiscount = totalAmount - parcentageOfDiscount;
         const getDiscountAmountInput = document.getElementById('discount');
-        getDiscountAmountInput.innerText = parcentageOfDiscount;
-        totalAmountString.innerText = getDiscount;
+        getDiscountAmountInput.innerText = parcentageOfDiscount.toFixed(2);
+        totalAmountString.innerText = getDiscount.toFixed(2);
     }else{
         alert ("Please complete minimum amount 200 to get 20% discount");
     }
