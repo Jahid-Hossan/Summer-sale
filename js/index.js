@@ -18,15 +18,14 @@ function clickHandler(target) {
     // calculation with declared variable to get the total price
     total = total + price;
     // set total price without discount
-    document.getElementById('total-price').innerText = total.toFixed(2);
-    const totalPriceAfterDisc = document.getElementById('total-after-discount').innerText = total.toFixed(2);
+    const totalPriceBeforeDisc = document.getElementById('total-price').innerText = total.toFixed(2);
     // enable and disable purchase button and apply btn
     const purchaseBtn = document.getElementById('btn-purchase');
     const applyBtn = document.getElementById('btn-apply');
     // condition for enable and disable
-    if (totalPriceAfterDisc > 0) {
+    if (totalPriceBeforeDisc > 0) {
         purchaseBtn.removeAttribute('disabled');
-        if (totalPriceAfterDisc >= 200) {
+        if (totalPriceBeforeDisc >= 200) {
             applyBtn.removeAttribute('disabled');
         } else {
             applyBtn.setAttribute('disable', true);
@@ -44,18 +43,20 @@ applyBtnHandle.addEventListener('click', function () {
     const couponCodeInput = document.getElementById('coupon-input');
     const couponCode = couponCodeInput.value;
     // get total amount before discount
-    const totalAmountString = document.getElementById('total-after-discount');
+    const totalAmountString = document.getElementById('total-price');
     const totalAmount = parseFloat(totalAmountString.innerText);
+    const totalPriceAfterDisc = document.getElementById('total-after-discount');
     // condition for discount
     if (couponCode === 'SELL200') {
         // discount calculation
         const parcentageOfDiscount = totalAmount * 0.20;
         // total amount after discount calculation
         const getDiscount = totalAmount - parcentageOfDiscount;
-        // set the amount inner text
+        // set the amount in inner text
         const getDiscountAmountInput = document.getElementById('discount');
         getDiscountAmountInput.innerText = parcentageOfDiscount.toFixed(2);
-        totalAmountString.innerText = getDiscount.toFixed(2);
+        totalPriceAfterDisc.innerText = getDiscount.toFixed(2);
+        
     } else {
         alert("Please enter valid coupon to get 20% discount");
     }
