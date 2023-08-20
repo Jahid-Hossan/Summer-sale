@@ -59,7 +59,7 @@ applyBtn.addEventListener('click', function () {
         // set total amount after discount
         totalAmountString.innerText = getDiscount.toFixed(2);
     } else {
-        alert("Please complete minimum amount 200 to get 20% discount");
+        alert("Please complete minimum amount of 200tk to get 20% discount");
     }
 })
 
