@@ -20,53 +20,50 @@ function clickHandler(target) {
     // set total price without discount
     document.getElementById('total-price').innerText = total.toFixed(2);
     const totalPriceAfterDisc = document.getElementById('total-after-discount').innerText = total.toFixed(2);
-    // enable and disable purchase button
+    // enable and disable purchase button and apply btn
     const purchaseBtn = document.getElementById('btn-purchase');
+    const applyBtn = document.getElementById('btn-apply');
+    // condition for enable and disable
     if (totalPriceAfterDisc > 0) {
         purchaseBtn.removeAttribute('disabled');
+        if (totalPriceAfterDisc >= 200) {
+            applyBtn.removeAttribute('disabled');
+        } else {
+            applyBtn.setAttribute('disable', true);
+        }
+    }else{
+        purchaseBtn.setAttribute('disable', true);
     }
 }
 
 // get the coupon apply button
-const applyBtn = document.getElementById('btn-apply');
-// get the coupon input value
-const applyBtnEnable = document.getElementById('coupon-input');
-// enable and disable coupon apply button
-applyBtnEnable.addEventListener('keyup', function (event) {
-    const couponConfirmation = event.target.value;
-    if (couponConfirmation === 'SELL200') {
-        applyBtn.removeAttribute('disabled');
-    } else {
-        applyBtn.setAttribute('disable', true);
-    }
-})
-
-
-// apply event listener on coupon apply button
-applyBtn.addEventListener('click', function () {
-    // get total price value and make number type
+const applyBtnHandle = document.getElementById('btn-apply');
+// calculation after apply coupon
+applyBtnHandle.addEventListener('click', function () {
+    // get the coupon input value
+    const couponCodeInput = document.getElementById('coupon-input');
+    const couponCode = couponCodeInput.value;
+    // get total amount before discount
     const totalAmountString = document.getElementById('total-after-discount');
     const totalAmount = parseFloat(totalAmountString.innerText);
-    // condition when discount will apply
-    if (totalAmount >= 200) {
-        // calculate discount
+    // condition for discount
+    if (couponCode === 'SELL200') {
+        // discount calculation
         const parcentageOfDiscount = totalAmount * 0.20;
-        // calculate total amount after discount
+        // total amount after discount calculation
         const getDiscount = totalAmount - parcentageOfDiscount;
-        // set discount amount
+        // set the amount inner text
         const getDiscountAmountInput = document.getElementById('discount');
         getDiscountAmountInput.innerText = parcentageOfDiscount.toFixed(2);
-        // set total amount after discount
         totalAmountString.innerText = getDiscount.toFixed(2);
     } else {
-        alert("Please complete minimum amount of 200tk to get 20% discount");
+        alert("Please enter valid coupon to get 20% discount");
     }
 })
 
 // redirect to home button
-const btnPurchase = document.getElementById('redirect-home');
-btnPurchase.addEventListener('click', function () {
-    console.log("hi");
+const redirectHomeBtn = document.getElementById('redirect-home');
+redirectHomeBtn.addEventListener('click', function () {
     window.location.href = 'index.html';
 })
 
